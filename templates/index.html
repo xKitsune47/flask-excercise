@@ -1,0 +1,60 @@
+{% import "macros.jinja2" as macros %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>weekly-todo</title>
+</head>
+<body>
+    <section id="selector">
+        <form name="daySelection" class="daySelection" method="post" id="daySelection">
+            <label for="dayOfWeek">
+                select day of the week<br>
+                <select name="dayOfWeek" class="dayOfWeek" id="dayOfWeek">
+                    <option selected="selected" disabled>Choose your day</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+            </label><br>
+            <input type="submit" class="formSubmission" value="Select">
+        </form>
+    </section>
+    <section id="main">
+        <h2>Tasks for chosen day</h2>
+        <table class="todoList">
+            {% for key, value in choresDict.items() %}
+                {% if key == submittedDay %}
+                    {{ macros.taskList(key, value) }}
+                {% endif %}
+            {% endfor %}
+        </table>
+        <h2>Tasks for today</h2>
+        <table class="todoList">
+            {% for key, value in choresDict.items() %}
+                {% if key == today %}
+                    {{ macros.taskList(key, value) }}
+                {% endif %}
+            {% endfor %}
+        </table>
+        <hr>
+        <dl class="detailedList">
+            {% for key, value in choresDict.items() %}
+                <dt><h3>{{ key }}</h3></dt>
+                <dd>
+                    <ul>
+                        {% for element in value %}
+                            <li>{{ element }}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            {% endfor %}
+        </dl>
+    </section>
+</body>
+</html>

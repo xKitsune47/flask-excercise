@@ -1,0 +1,12 @@
+{% macro taskList(key, value) %}
+    <tr>
+    <th>{{ key + ': ' }}</th>
+    {% for element in value %}
+        {% if value[-1] == element %}
+            <td>{{ element }}</td>
+        {% else %}
+            <td>{{ element + ', '}}</td>
+        {% endif %}
+    {% endfor %}
+    </tr>
+{% endmacro %}
